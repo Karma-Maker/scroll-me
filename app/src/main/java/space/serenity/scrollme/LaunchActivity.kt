@@ -3,13 +3,12 @@ package space.serenity.scrollme
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import kotlinx.android.synthetic.main.activity_launch.*
 import space.serenity.scrollme.adapters.ImagesAdapter
 import space.serenity.scrollme.providers.TestProvider
 import android.support.v7.widget.GridLayoutManager
-
+import android.support.v7.widget.MyGridLayoutManager
 
 
 class LaunchActivity : AppCompatActivity() {
@@ -21,7 +20,7 @@ class LaunchActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         // list
-        list.layoutManager = GridLayoutManager(this, 3) 
+        list.layoutManager = MyGridLayoutManager(this, 3)
         list.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
         val provider = TestProvider()
