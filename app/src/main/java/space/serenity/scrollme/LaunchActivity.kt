@@ -2,9 +2,15 @@ package space.serenity.scrollme
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
-import android.view.Menu
-import android.view.MenuItem
+import kotlinx.android.synthetic.main.activity_launch.*
+import space.serenity.scrollme.adapters.ImagesAdapter
+import space.serenity.scrollme.providers.TestProvider
+import android.support.v7.widget.GridLayoutManager
+
+
 
 class LaunchActivity : AppCompatActivity() {
 
@@ -13,25 +19,22 @@ class LaunchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_launch)
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_launch, menu)
-        return true
-    }
+        // list
+        list.layoutManager = GridLayoutManager(this, 3) 
+        list.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.itemId
+        val provider = TestProvider()
 
+        val adapter = ImagesAdapter(provider)
+        list.adapter = adapter
 
-        if (id == R.id.action_settings) {
-            return true
+        provider.dataSetChangeListener = {
+            refresh.isRefreshing = false
+            adapter.notifyDataSetChanged()
         }
+        refresh.setOnRefreshListener { provider.init() }
 
-        return super.onOptionsItemSelected(item)
+        provider.init()
     }
 }
