@@ -1,0 +1,7 @@
+<resources>
+    <!--it's unlikely that all the margins will change independently so I prefer to deal with dimens like this-->
+    <dimen name="margin_4">4dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+
+</resources>
