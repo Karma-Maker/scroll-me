@@ -2,4 +2,5 @@
     <string name="app_name">Scroll Me</string>
     <string name="title_activity_main">Scroll Me</string>
     <string name="action_settings">Settings</string>
+    <string name="search_hint">Search...</string>
 </resources>
