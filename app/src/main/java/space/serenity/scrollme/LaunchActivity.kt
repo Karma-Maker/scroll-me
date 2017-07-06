@@ -21,8 +21,8 @@ class LaunchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launch)
         // list
-        list.layoutManager = MyGridLayoutManager(this, 2)
-        list.addItemDecoration(GridSpacingItemDecoration(2, 10, false))
+        list.layoutManager = MyGridLayoutManager(this, 3)
+        list.addItemDecoration(GridSpacingItemDecoration(3, 10, false))
 
         val provider = ImagesProvider()
 
