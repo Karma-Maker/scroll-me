@@ -6,7 +6,7 @@ import android.support.v7.widget.MyGridLayoutManager
 import android.support.v7.widget.Toolbar
 import kotlinx.android.synthetic.main.activity_launch.*
 import space.serenity.scrollme.adapters.ImagesAdapter
-import space.serenity.scrollme.providers.TestProvider
+import space.serenity.scrollme.providers.ImagesProvider
 import space.serenity.scrollme.utils.GridSpacingItemDecoration
 
 
@@ -22,7 +22,7 @@ class LaunchActivity : AppCompatActivity() {
         list.layoutManager = MyGridLayoutManager(this, 2)
         list.addItemDecoration(GridSpacingItemDecoration(2, 10, false))
 
-        val provider = TestProvider()
+        val provider = ImagesProvider()
 
         val adapter = ImagesAdapter(provider)
         list.adapter = adapter

@@ -9,7 +9,7 @@ abstract class Provider {
 
     abstract fun init()
 
-    operator fun get(position: Int): Any {
+    open operator fun get(position: Int): Any {
         return source[position]
     }
 
