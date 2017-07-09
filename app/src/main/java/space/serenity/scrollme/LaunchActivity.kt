@@ -47,8 +47,7 @@ class LaunchActivity : AppCompatActivity() {
 
         imageSearch.setOnQueryChangeListener { oldQuery, newQuery ->
             run {
-                provider.searchQuery = newQuery
-                imageSearch.swapSuggestions(suggestions.getSuggestion(provider.searchQuery, 3).map { suggestion -> SearchQuerySuggestion(suggestion) })
+                imageSearch.swapSuggestions(suggestions.getSuggestion(newQuery, 3).map { suggestion -> SearchQuerySuggestion(suggestion) })
             }
         }
 
