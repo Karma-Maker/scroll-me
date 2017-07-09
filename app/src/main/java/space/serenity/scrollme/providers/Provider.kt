@@ -5,7 +5,8 @@ package space.serenity.scrollme.providers
  */
 
 abstract class Provider {
-    var dataSetChangeListener: () -> Unit = {}
+    var dataInsertListener: (start: Int, count: Int) -> Unit = {start, count -> }
+    var dataRemovedListener: (start: Int, count: Int) -> Unit = {start, count -> }
 
     abstract fun init()
 
@@ -16,7 +17,11 @@ abstract class Provider {
     val count: Int get() = source.size
 
     protected val source = ArrayList<Any>()
-    protected fun notifyDataSetChanged(){
-        dataSetChangeListener.invoke();
+    protected fun notifyDataInsert(start: Int, count: Int){
+        dataInsertListener.invoke(start, count);
+    }
+
+    protected fun notifyDataRemove(start: Int, count: Int){
+        dataRemovedListener.invoke(start, count);
     }
 }

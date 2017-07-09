@@ -29,17 +29,28 @@ class LaunchActivity : AppCompatActivity() {
         val adapter = ImagesAdapter(provider)
         list.adapter = adapter
 
-        provider.dataSetChangeListener = {
-            refresh.isRefreshing = false
-            suggestions.putSearchQuery(provider.searchQuery)
-            adapter.notifyDataSetChanged()
+        provider.dataInsertListener = { start, count ->
+            run {
+                refresh.isRefreshing = false
+                suggestions.putSearchQuery(provider.searchQuery)
+                adapter.notifyItemRangeInserted(start, count)
+            }
+        }
+
+        provider.dataRemovedListener = { start, count ->
+            run {
+                adapter.notifyItemRangeRemoved(start, count)
+                refresh.isRefreshing = false
+            }
         }
         refresh.setOnRefreshListener { provider.init() }
 
-        imageSearch.setOnQueryChangeListener { oldQuery, newQuery -> run {
-            provider.searchQuery = newQuery
-            imageSearch.swapSuggestions(suggestions.getSuggestion(provider.searchQuery, 3).map { suggestion -> SearchQuerySuggestion(suggestion) })
-        }}
+        imageSearch.setOnQueryChangeListener { oldQuery, newQuery ->
+            run {
+                provider.searchQuery = newQuery
+                imageSearch.swapSuggestions(suggestions.getSuggestion(provider.searchQuery, 3).map { suggestion -> SearchQuerySuggestion(suggestion) })
+            }
+        }
 
         imageSearch.setOnFocusChangeListener(object : FloatingSearchView.OnFocusChangeListener {
             override fun onFocus() {
@@ -47,6 +58,7 @@ class LaunchActivity : AppCompatActivity() {
             }
 
             override fun onFocusCleared() {
+                imageSearch.swapSuggestions(listOf())
             }
         })
 

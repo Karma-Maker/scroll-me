@@ -4,7 +4,7 @@ package space.serenity.scrollme.providers
  * Created by karmamaker on 05/07/2017.
  */
 
-val PAGE_SIZE = 32 // This value should be received from server
+val PAGE_SIZE = 48 // This value should be received from server
 val ITEMS_BEFORE_NEXT_REQUEST = 24 // This value should be received from server as well
 
 val ITEM_NO_IMAGES= "NO_IMAGES"

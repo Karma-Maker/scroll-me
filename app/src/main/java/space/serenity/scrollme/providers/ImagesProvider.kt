@@ -52,7 +52,9 @@ class ImagesProvider : Provider() {
             savedCall.cancel()
             currCall = null
         }
+        val savedSourceSize = source.size
         source.clear()
+        notifyDataRemove(0, savedSourceSize)
     }
 
     private val isFullyLoaded: Boolean
@@ -78,7 +80,6 @@ class ImagesProvider : Provider() {
 
             private fun onFinish() {
                 currCall = null
-                notifyDataSetChanged()
             }
         }
 
@@ -88,7 +89,9 @@ class ImagesProvider : Provider() {
         if ( currCall == null && shouldRequestNextPage(position)) {
             currCall = requestPage(currentPage + 1, PAGE_SIZE, callback)
         }
-        return source[position]
+
+        if(-1 < position && position < source.size) return source[position]
+        else throw IndexOutOfBoundsException()
     }
 
     private fun shouldRequestNextPage(position: Int): Boolean {
@@ -104,7 +107,8 @@ class ImagesProvider : Provider() {
         loadedPage.removeAll(source)
 
         dataPadding += dataSizeWithDuplicates - loadedPage.size
-        source.addAll(source.size, loadedPage)
 
+        source.addAll(source.size, loadedPage)
+        notifyDataInsert(source.size - loadedPage.size, loadedPage.size)
     }
 }
