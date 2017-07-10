@@ -1,24 +1,31 @@
 package space.serenity.scrollme
 
+import android.arch.lifecycle.LifecycleOwner
+import android.arch.lifecycle.LifecycleRegistry
+import android.arch.lifecycle.LifecycleRegistryOwner
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.MyGridLayoutManager
 import com.arlib.floatingsearchview.FloatingSearchView
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion
+import io.paperdb.Paper
 import kotlinx.android.synthetic.main.activity_launch.*
 import space.serenity.scrollme.adapters.ImagesAdapter
 import space.serenity.scrollme.model.SearchQuerySuggestion
 import space.serenity.scrollme.providers.ImagesProvider
 import space.serenity.scrollme.utils.GridSpacingItemDecoration
 import space.serenity.scrollme.utils.Suggestions
+import android.arch.lifecycle.LifecycleActivity
 
 
-class LaunchActivity : AppCompatActivity() {
+class LaunchActivity : LifecycleActivity() {
 
-    val suggestions = Suggestions()
+    val suggestions = Suggestions(this.lifecycle)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Paper.init(this)
+
         setContentView(R.layout.activity_launch)
         // list
         list.layoutManager = MyGridLayoutManager(this, 3)
