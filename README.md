@@ -9,3 +9,6 @@ I've decided to keep it as simple as possible the only «innovation» is binders
 
 Testing:
 Only manual. Given more time I would implement UI testing with different test providers.
+
+Happy testing!
+Hope you will like the code =)
